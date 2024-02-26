@@ -1,23 +1,24 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 # Create your views here.
 
-
-def index(request):
-    return HttpResponse("This works")
-
-
-def february(request):
-    return HttpResponse("Februrary works")
+monthly_challenges = {"january":"NO meat in Jan",
+                      "february":"zero carbs in feb ",
+                      "march": "no shave march"}
 
 
-def monthly_challenge(request,month):
-    challenge_text = None
-    if month == 'january':
-        challenge_text = "no meat in January"
-    elif month =='february':
-        challenge_text = "no shave February"    
-    else:
-        return  HttpResponseNotFound ( "no Such month supported ")
-        
-    return HttpResponse(challenge_text)
+def monthly_challenge_byNumber(request,month):
+     months = list(monthly_challenges.keys())
+     redirect_month = months[month-1]
+     return HttpResponseRedirect("/challenges/"+redirect_month)
+
+
+def monthly_challenge(request, month):
+     try:
+          challenge_text = monthly_challenges[month]
+
+     except: 
+          return HttpResponseNotFound("no Such month supported ")
+     return HttpResponse(challenge_text)
+  
+      
