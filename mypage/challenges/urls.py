@@ -11,6 +11,7 @@ from.import views
 urlpatterns = [
 
     path("<int:month>",views.monthly_challenge_byNumber),
+    # we gave name here to our path "name = month-challege " to implement redirection in views 
     path("<str:month>",views.monthly_challenge,name="month-challenge")
 
 ]
