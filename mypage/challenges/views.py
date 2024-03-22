@@ -31,7 +31,7 @@ monthly_challenges = {
 
     "november": "Walk for at least 20 minutes every day!",
 
-    "december": "Learn Django for at least 20 minutes every day!"
+    "december": None
 
 }
 
@@ -66,15 +66,12 @@ def monthly_challenge_by_number(request, month):
 def monthly_challenge(request, month):
 
     try:
-
         challenge_text = monthly_challenges[month]
-
-        response_data = render(request, "challenges/challenge.html", {
-            "text": challenge_text
-
-        })
-
-        return HttpResponse(response_data)
+        
+        return render(request, "challenges/challenge.html", {
+            "text": challenge_text,
+            "month_name": month
+            })
 
     except:
 
