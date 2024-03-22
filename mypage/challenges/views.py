@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import Http404, HttpResponseNotFound, HttpResponseRedirect
 # is used to redirect path from urls to views for dynamic solutions
 from django.urls import reverse
 
@@ -74,5 +74,5 @@ def monthly_challenge(request, month):
             })
 
     except:
-
-        return HttpResponseNotFound("<h1>This month is not supported!</h1>")
+         raise Http404()
+  
